@@ -8,6 +8,7 @@ import transactionsRoute from "./routes/transactionsRoute.js";
 import dotenv from "dotenv";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import job from "./config/cron.js";
 
 const backendDirectory = dirname(fileURLToPath(import.meta.url));
 
@@ -18,7 +19,15 @@ dotenv.config({
 
 const app = express();
 
+if(process.env.NODE_ENV==="production")job.start();
+
 const PORT = Number(process.env.PORT) || 5001;
+
+app.get("/api/health", (req,res) =>{
+  res.status(200).json({status:"ok"})
+})
+
+
 
 // Middleware
 app.use(express.json());
