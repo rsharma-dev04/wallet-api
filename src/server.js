@@ -49,7 +49,7 @@ app.get("/db", async (req, res) => {
 });
 
 // Rate Limiter Middleware
-app.use("/api", rateLimiter);
+app.use("/api", ratelimiter);
 
 // Transaction Routes
 app.use("/api/transactions", transactionsRoute);
